@@ -1,0 +1,35 @@
+.conteneurItem{
+    display: flex;
+justify-content: space-evenly;
+align-items: center;
+}
+.formulaire{
+    color:red;
+    width:350px;
+   
+}
+.supprimer{
+    padding: 10px;
+border-radius: 5px;
+color: white;
+font-weight: bold;
+background-color: red;
+}
+.bouton{
+    background-color: blue;
+    padding: 5px;
+    color: white;
+    border-radius: 5px;
+    margin: 5px;
+}
+#div{
+    display: flex;
+justify-content: flex-end;
+margin-right: 80px;
+align-items: flex-end;
+}
+.prixItem{
+background-color: transparent;
+
+border: 0;
+}

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body >
+    <script>
+        function colorer(i){
+            var coeurs=document.getElementsByClassName('coeur');
+            coeurs[i].style.color=(coeurs[i].style.color=="red")?"black":"red";
+                          
+
+        }
+        function incrementer(i){
+            afficheurs=document.getElementsByClassName('afficheur');
+            afficheurs[i].value=Number(afficheurs[i].value)+1;
+
+        }
+        function decrementer(i){
+            afficheurs=document.getElementsByClassName('afficheur');
+            if(afficheurs[i].value>0)
+            afficheurs[i].value=Number(afficheurs[i].value)-1;
+
+        }
+        function calculerTotal(i){
+            let checked=document.getElementsByName('check');
+            let prixItem=document.getElementsByClassName('prixItem');
+          console.log(' i au niveau du total =>', i);
+            
+           if(checked[i].checked)
+            document.getElementById('total').value=Number(document.getElementById('total').value)+Number(prixItem[i].value);
+         
+            if(!checked[i].checked && document.getElementById('total').value>0 )
+            document.getElementById('total').value=Number(document.getElementById('total').value)-Number(prixItem[i].value);
+           
+        }
+        function supprimerItem(i){
+           divs=document.getElementsByClassName('conteneurTshirt');
+           
+            let checked=document.getElementsByName('check');
+            let prixItem=document.getElementsByClassName('prixItem');
+           
+
+          
+
+            if(checked[i].checked) 
+            document.getElementById('total').value=Number(document.getElementById('total').value)-Number(prixItem[i].value);
+            
+           console.log('i du delete ', i)
+       
+          document.body.removeChild(divs[i]);
+
+        
+    
+          
+          
+
+         
+
+
+           
+           
+            
+           
+        }
+     
+        
+
+  /*******************************************************************************/      
+        let tabPrix=[30,25,15,35,15,30,25,15,35,5];
+        var longueur=tabPrix.length;
+      
+        
+   
+     
+        for(var i=0; i<longueur;i++){
+       let  e=document.createElement('div');
+            e.setAttribute('class','conteneurItem');
+          
+
+       let supprimer=document.createElement('button');
+       supprimer.innerHTML="X";
+       supprimer.setAttribute('class','supprimer');
+       supprimer.setAttribute('onclick',`supprimerItem(${i})`);
+
+       e.appendChild(supprimer);
+
+
+       let coeur=document.createElement('i');
+       coeur.setAttribute('class','fa fa-heart fa-2x coeur');
+       coeur.setAttribute('aria-hidden',true);
+       coeur.style.color="black";
+      
+       coeur.setAttribute('onclick',`colorer(${i})`);
+       e.appendChild(coeur);
+       
+       let item=document.createElement('img');
+       item.setAttribute('src',`images/t${i}.png`);
+       item.setAttribute('alt',`item${i}`);
+       item.setAttribute('width','150px');
+       e.appendChild(item);
+      
+       let formulaire=document.createElement('form');
+       formulaire.setAttribute('class','formulaire');
+      
+    
+       e.appendChild(formulaire);
+
+       let bouton1=document.createElement('button');
+       bouton1.innerHTML="-";
+       bouton1.setAttribute('class','bouton');
+       bouton1.setAttribute('type','button');
+       bouton1.setAttribute('onclick',`decrementer(${i})`)
+       formulaire.appendChild(bouton1);
+
+       let afficheur=document.createElement('input');
+       afficheur.setAttribute('class','afficheur') ;
+       afficheur.setAttribute('disabled','disabled');
+       afficheur.style.width="35px";
+       afficheur.value=0;
+       formulaire.appendChild(afficheur);
+
+       let bouton2=document.createElement('button');
+       bouton2.innerHTML="+";
+       bouton2.setAttribute('class','bouton');
+       bouton2.setAttribute('type','button');
+
+       bouton2.setAttribute('onclick',`incrementer(${i})`)
+    
+       formulaire.appendChild(bouton2);
+
+        
+
+       //let prix=document.createTextNode(` Prix : ${tabPrix[i-1]} dinars`);
+       var prixLabel=document.createElement('label');
+       prixLabel.innerHTML='Prix : ';
+       let prix=document.createElement('input');
+       prix.setAttribute('class','prixItem');
+       prix.setAttribute('id',`prixItem${i}`)
+       prix.setAttribute('disabled','disabled');
+       prix.style.width="50px";
+       prix.value=tabPrix[i];
+       let span=document.createElement('span');
+       span.innerHTML="DT";
+       
+      
+      formulaire.appendChild(prixLabel);
+       formulaire.appendChild(prix);
+       formulaire.appendChild(span);
+
+       let labelAchat=document.createElement('label');
+       labelAchat.innerHTML='j\'achète';
+       labelAchat.style.marginLeft="45px"
+       formulaire.appendChild(labelAchat);
+
+
+       let achat=document.createElement('input');
+          achat.setAttribute('type','checkbox');
+          achat.setAttribute('class',"check");
+          achat.setAttribute('name',"check")
+          achat.setAttribute('onclick',`calculerTotal(${i})`)
+          formulaire.appendChild(achat);
+
+       hr=document.createElement('hr');
+       let e2=document.createElement('div');
+       e2.setAttribute('class','conteneurTshirt');
+       e2.setAttribute('id',`conteneurTshirt${i}`);
+       e2.appendChild(e);
+       e2.appendChild(hr);
+       
+
+document.body.appendChild(e2);
+        }
+        let div=document.createElement('div');
+        div.setAttribute('id','div');
+
+        let totalLabel=document.createElement('label');
+  
+        totalLabel.innerHTML="<br>TOTAL&nbsp;&nbsp;";
+        div.appendChild(totalLabel);
+        let total=document.createElement('input');
+        total.setAttribute('id','total');
+        total.setAttribute('disabled','disabled');
+        total.value=0;
+        div.appendChild(total); 
+        
+        document.body.appendChild(div);
+
+        
+
+        
+        
+    
+    </script>
+    
+</body>
+</html>
